@@ -4,17 +4,10 @@ from sqlalchemy import select
 from ..schemas.rooms import RoomIn, RoomOut, RoomPatch
 from ..models import Room
 from ..database import get_db
-from ..dependencies import get_pagination
+from ..dependencies import get_pagination, get_room_or_404
 
 
 router = APIRouter()
-
-
-def get_room_or_404(room_id: int, db: Session = Depends(get_db)) -> Room:
-    room = db.get(Room, room_id)
-    if room is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Room not found")
-    return room
 
 
 @router.get("/{room_id}", response_model=RoomOut)
@@ -67,5 +60,7 @@ def patch_room(data: RoomPatch, room: Room = Depends(get_room_or_404), db: Sessi
 
 @router.delete("/{room_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_room(room: Room = Depends(get_room_or_404), db: Session = Depends(get_db)):
+    if room.bookings:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Room has bookings")
     db.delete(room)
     db.commit()

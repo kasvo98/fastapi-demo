@@ -5,6 +5,7 @@ from pydantic.types import SecretStr
 class Settings(BaseSettings):
     secret_key: SecretStr
     app_name: str = "Rooms"
+    dbms: str
     database_url: str
 
     model_config = SettingsConfigDict(env_file=".env")
