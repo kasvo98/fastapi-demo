@@ -12,7 +12,7 @@
 
 Запуск сервера командой:
 ```
-python -m uvicorn main:app
+python -m uvicorn app.main:app
 ```
 
 Просмотр реализованного API по адресу [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
