@@ -1,6 +1,7 @@
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, DateTime
 from dataclasses import dataclass
+from datetime import datetime
 
 
 class Base(DeclarativeBase):
@@ -36,7 +37,9 @@ class Room(Base):
 class Booking(Base):
     __tablename__ = "booking"
     id: Mapped[int] = mapped_column(primary_key=True)
-    
+
+    starts_at: Mapped[datetime] = mapped_column(DateTime(timezone=False))
+    ends_at: Mapped[datetime] = mapped_column(DateTime(timezone=False))
     room_id: Mapped[int] = mapped_column(ForeignKey("room.id"))
 
     room: Mapped["Room"] = relationship(back_populates="bookings")
