@@ -1,10 +1,10 @@
 from fastapi import status, HTTPException, APIRouter, Depends
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from ..schemas.rooms import RoomIn, RoomOut, RoomPatch
-from ..models import Room
-from ..database import get_db
-from ..dependencies import get_pagination, get_room_or_404
+from app.schemas.rooms import RoomIn, RoomOut, RoomPatch
+from app.models import Room
+from app.database import get_db
+from app.dependencies import get_pagination, get_room_or_404
 
 
 router = APIRouter()

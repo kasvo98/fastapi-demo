@@ -1,7 +1,7 @@
 from fastapi import Depends, status, HTTPException
 from sqlalchemy.orm import Session
-from .database import get_db
-from .models import Room
+from app.database import get_db
+from app.models import Room
 
 
 def get_pagination(skip: int = 0, limit: int = 10) -> dict:

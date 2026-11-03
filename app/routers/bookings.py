@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import select
-from ..schemas.bookings import BookingIn, BookingOut
-from ..models import Room, Booking
-from ..dependencies import get_db, get_room_or_404
-from ..booking_utils import to_db_utc, find_conflict
+from app.schemas.bookings import BookingIn, BookingOut
+from app.models import Room, Booking
+from app.dependencies import get_db, get_room_or_404
+from app.booking_utils import to_db_utc, find_conflict
 
 
 router = APIRouter()

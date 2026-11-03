@@ -1,8 +1,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.event import listens_for
-from .models import Base
-from .settings import get_settings
+from app.models import Base
+from app.settings import get_settings
 
 
 
@@ -19,7 +19,7 @@ def create_db_engine(url, dbms):
     return configured_engine
 
 
-def init_db(engine):
+def init_db():
     Base.metadata.create_all(bind=engine)
 
 
@@ -34,4 +34,3 @@ def get_db():
 settings = get_settings()
 engine = create_db_engine(settings.database_url, settings.dbms)
 SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
-init_db(engine)
